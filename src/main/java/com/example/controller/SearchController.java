@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * // 主页列表查询
+ * // 主页列表查询 SearchDto
  * post("/sanguo_search2", data);
  * // 历史查询
  * post("/v2/search/goods_history", data);
- * // 历史查询v3：分类别
+ * // 历史查询v3：分类别 SearchDto
  * post("/v3/search/goods_history", data);
  * // 数据格式解析
  * post("/v1/search/attribute/decode", data);
@@ -22,16 +22,38 @@ import org.springframework.web.bind.annotation.*;
  * post("/v1/search/get_firm_detail", data);
  * // 查看寄卖详情
  * post("/v1/search/get_consignment_detail", data);
- * // 获取商品历史记录
+ * // 获取商品历史记录 SearchDto
  * post("/v1/search/goods_history", data);
  * // 新增黑名单接口
+ * case 1://商行
+ * query = {
+ *   blacklist_type:1,
+ *   player_id:activeRow.shop_owner_name
+ * }
+ * case 2://寄卖
+ * query = {
+ *   blacklist_type:3,
+ *   player_id:activeRow.seller
+ * }
+ * case 3://摊位
+ * query = {
+ *   blacklist_type:2,
+ *   player_id:activeRow.stall_owner_name
+ * }
  * .post("/v1/search/blacklist", data);
  * // 移除黑名单接口
+ * case 1://商行
+ * case 2://摊位
+ * case 3://寄卖
+ * query = {
+ *   blacklist_type:3,
+ *   player_id:id
+ *}
  * post("/v1/search/remove_blacklist", data);
- * // 查看黑名单接口
+ * // 查看黑名单接口 无参数
  * get("/v1/search/blacklist", data);
  */
-@RestController()
+@RestController
 @Slf4j
 public class SearchController {
 
