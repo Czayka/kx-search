@@ -35,13 +35,10 @@ public class QNServiceImpl implements QNService {
     @Autowired
     private HttpAPIUtil httpAPIUtil;
 
-    @Autowired
-    private HttpServletRequest httpServletRequest;
-
     private final String KEY = "TAt3cxVCB2wV51aH";
 
     @Override
-    public void login() throws Exception {
+    public void login() {
         List<User> users = userMapper.selectList(null);
         users.forEach(user -> {
             String username = user.getUsername();
