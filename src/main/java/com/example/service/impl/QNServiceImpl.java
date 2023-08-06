@@ -2,8 +2,6 @@ package com.example.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.example.config.HeaderMapRequestWrapper;
 import com.example.mapper.CdkMapper;
 import com.example.mapper.UserMapper;
 import com.example.mode.dto.QNUserDto;
@@ -163,11 +161,6 @@ public class QNServiceImpl implements QNService {
 
     public User register(String userName, String passWord, String openId){
         String url = "https://bzsg.qqsgtk.cn/admin/register/user";
-
-        HeaderMapRequestWrapper requestWrapper = new HeaderMapRequestWrapper(httpServletRequest);
-        requestWrapper.addHeader("Referer","https://servicewechat.com/wxbeade8e701e701e0dd01/85/page-frame.html");
-
-        requestWrapper.addHeader("Host","bzsg.qqsgtk.cn");
         QNUserDto qnUserDto = new QNUserDto();
         qnUserDto.setUsername(userName);
         qnUserDto.setRepassword(passWord);
