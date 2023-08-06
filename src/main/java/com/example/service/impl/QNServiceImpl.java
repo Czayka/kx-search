@@ -34,7 +34,7 @@ public class QNServiceImpl implements QNService {
     @Autowired
     private HttpAPIUtil httpAPIUtil;
 
-    private final String KEY = "TAt3cxVCB2wV51aH";
+    private final static String KEY = "TAt3cxVCB2wV51aH";
 
     @Override
     public void login() {
