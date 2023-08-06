@@ -311,7 +311,7 @@ public class HttpAPIUtil {
             }
         }
     }
-    public static HttpResult getContent(String url, Map<String, String> mapdata) {
+    public HttpResult getContent(String url, Map<String, String> mapdata) {
         HttpResult httpResult = new HttpResult();
         CloseableHttpResponse response = null;
         CloseableHttpClient httpClient = HttpClients.createDefault();

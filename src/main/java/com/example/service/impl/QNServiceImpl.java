@@ -11,7 +11,6 @@ import com.example.service.QNService;
 import com.example.utils.AESUtil;
 import com.example.utils.HttpAPIUtil;
 import com.example.vo.HttpResult;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
