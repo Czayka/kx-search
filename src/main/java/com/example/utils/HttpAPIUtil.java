@@ -1,6 +1,7 @@
 package com.example.utils;
 
 import com.example.vo.HttpResult;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.ParseException;
@@ -11,6 +12,7 @@ import org.apache.http.client.methods.*;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ import java.net.URISyntaxException;
 import java.util.*;
 
 @Component
+@Slf4j
 public class HttpAPIUtil {
     @Autowired
     private CloseableHttpClient httpClient;
@@ -102,6 +105,7 @@ public class HttpAPIUtil {
 
         // 响应模型
         CloseableHttpResponse response = null;
+//        log.info(httpClient.toString());
         try {
             // 由客户端执行(发送)Get请求
             response = httpClient.execute(httpPost);
@@ -230,6 +234,10 @@ public class HttpAPIUtil {
         headers.put("Content-Type", "application/json;charset=utf8");
         return doPost(url,headers,null,json);
     }
+    public HttpResult doPost(String url, Map<String, String> headers, String json){
+        headers.put("Content-Type", "application/json;charset=utf8");
+        return doPost(url,headers,null,json);
+    }
 
     private HttpGet getUrlParam(String url, Map<String, String> params) {
         try{
@@ -302,5 +310,54 @@ public class HttpAPIUtil {
                 throw new RuntimeException("不支持的地址格式！");
             }
         }
+    }
+    public static HttpResult getContent(String url, Map<String, String> mapdata) {
+        HttpResult httpResult = new HttpResult();
+        CloseableHttpResponse response = null;
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        // 创建httppost
+        HttpPost httpPost = new HttpPost(url);
+        try {
+            // 设置提交方式
+            httpPost.addHeader("Content-type", "application/x-www-form-urlencoded; charset=utf-8");
+
+            httpPost.addHeader("Host","bzsg.qqsgtk.cn");
+            httpPost.addHeader("isToken","!1");
+            httpPost.addHeader("Authorization","Basic dGVzdDp0ZXN0");
+            httpPost.addHeader("Referer","https://servicewechat.com/wxbeade8e701e701e0dd01/85/page-frame.html");
+            // 添加参数
+            List<NameValuePair> nameValuePairs = new ArrayList<>();
+            if (mapdata.size() != 0) {
+                // 将mapdata中的key存在set集合中，通过迭代器取出所有的key，再获取每一个键对应的值
+                Set keySet = mapdata.keySet();
+                Iterator it = keySet.iterator();
+                while (it.hasNext()) {
+                    String k =  it.next().toString();// key
+                    String v = mapdata.get(k);// value
+                    nameValuePairs.add(new BasicNameValuePair(k, v));
+                }
+            }
+            httpPost.setEntity( new UrlEncodedFormEntity(nameValuePairs,"UTF-8"));
+            log.info(httpPost.toString());
+            // 执行http请求
+            response = httpClient.execute(httpPost);
+            // 获得http响应体
+            HttpEntity entity = response.getEntity();
+            if (entity != null) {
+                // 响应的结果
+                String content = EntityUtils.toString(entity, "UTF-8");
+                httpResult.setCode(200);
+                httpResult.setBody(content);
+                return httpResult;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            httpResult.setCode(500);
+            httpResult.setBody("获取数据错误");
+            return httpResult;
+        }
+        httpResult.setCode(404);
+        httpResult.setBody("获取数据为空");
+        return httpResult;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.dto;
+package com.example.mode.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

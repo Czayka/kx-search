@@ -1,7 +1,7 @@
 package com.example.service;
 
-import com.example.dto.SearchParamDto;
-import com.example.dto.UserDto;
+import com.example.mode.dto.SearchParamDto;
+import com.example.mode.dto.UserDto;
 
 public interface SearchService {
 

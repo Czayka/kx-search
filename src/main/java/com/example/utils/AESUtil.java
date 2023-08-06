@@ -23,6 +23,35 @@ public class AESUtil {
         }
     }
 
+
+    /**
+     * @author miracle.qu
+     * @Description AES算法加密明文
+     * @param data 明文
+     * @return 密文
+     */
+    public static String encryptAESCFB(String key, String iv, String data) throws Exception {
+        try {
+
+            Cipher cipher = Cipher.getInstance("AES/CFB/NoPadding");
+//            Cipher.getInstance();
+
+            SecretKeySpec keyspec = new SecretKeySpec(key.getBytes("UTF-8"), "AES");
+            // CBC模式，需要一个向量iv，可增加加密算法的强度
+            IvParameterSpec ivspec = new IvParameterSpec(iv.getBytes("UTF-8"));
+
+            cipher.init(Cipher.ENCRYPT_MODE, keyspec, ivspec);
+            byte[] encrypted = cipher.doFinal(data.getBytes("UTF-8"));
+            // BASE64做转码。
+            String aesBase64 = AESUtil.encode(encrypted).trim();
+//            log.info("aesBase64:{}",aesBase64);
+            return aesBase64;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     /**
      * @author miracle.qu
      * @Description AES算法加密明文

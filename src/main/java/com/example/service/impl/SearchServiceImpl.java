@@ -1,14 +1,13 @@
 package com.example.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.example.dto.SearchParamDto;
-import com.example.dto.UserDto;
+import com.example.mode.dto.SearchParamDto;
+import com.example.mode.dto.UserDto;
 import com.example.service.SearchService;
 import com.example.utils.AESUtil;
 import com.example.utils.HttpAPIUtil;
 import com.example.vo.HttpResult;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

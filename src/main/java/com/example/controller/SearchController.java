@@ -1,7 +1,7 @@
 package com.example.controller;
 
-import com.example.dto.SearchParamDto;
-import com.example.dto.UserDto;
+import com.example.mode.dto.SearchParamDto;
+import com.example.mode.dto.UserDto;
 import com.example.service.SearchService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
